@@ -1,43 +1,38 @@
-with open('./puzzle5_input.txt', 'r') as f:
-    pass_list = [i.strip() for i in f.readlines()]
 
+def convert(string: str) -> str:
+    converted_string = string.replace('F', '0').replace('B', '1').replace('L', '0').replace('R', '1')
 
-'''
-def find_row(row_string: str):
-    current_rows = [0, 128]
-    for i in range(6):
-        half = (current_rows[1] - current_rows[0]) / 2
-        if row_string[i] == 'F':
-            current_rows[1] = current_rows[0] + half
-        else:
-            current_rows[0] = current_rows[1] - half
-        
-    if row_string[6] == 'F':
-        return current_rows[0]
-    else:
-        return current_rows[1]
+    return converted_string
 
-def find_column(col_string: str):
-    current_columns = [0, 8]
-    for i in range(7, 10):
-        half = (current_columns[1] - current_columns[0]) / 2
-        if col_string[i] == 'L':
-            current_columns[1] = current_columns[0] + half
-        else:
-            current_columns[0] = current_columns[1] - half
+def get_id(row: int, column: int) -> int:
+
+    return (row * 8) + column
+
+def find_missing_seat(seat_ix: list, n_seats: int) -> list:
+    missing_seats = [seat for seat in range(min(seat_ix), max(seat_ix)) if seat not in seat_ix]
+
+    return missing_seats
     
-    if col_string[9] == 'L':
-        return current_columns[0]
-    else:
-        return current_columns[1] - 1
-'''
-seat_id = []
-for bp in pass_list:
-    row = find_row(bp)
-    column = find_column(bp)
-    seat_id.append((row * 8) + column)
+if __name__ == '__main__':
+    with open('./puzzle5_input.txt', 'r') as f:
+        pass_list = [i.strip() for i in f.readlines()]
 
-print(max(seat_id))
+    # Part I    
+    seat_ix = []
 
+    for bpass in pass_list:
+        converted_pass = convert(bpass)
+        row = int(converted_pass[:7], 2)
+        column = int(converted_pass[7:], 2)
 
-# multiply row by 8 and add column
+        seat_ix.append(get_id(row, column))
+
+    print(max(seat_ix))
+
+    # Part II
+
+    rows = 128
+    cols = 8
+    n_seats = rows * cols
+
+    print(find_missing_seat(seat_ix, n_seats))
