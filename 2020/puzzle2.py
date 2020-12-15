@@ -3,7 +3,7 @@ with open("./puzzle2_input.txt", "r") as f:
 pair_list = [(i.split(":")[0], i.split(":")[1].strip()) for i in password_list]
 
 # Part I
-def check_password(pair) -> bool:
+def check_password(pair: tuple) -> bool:
     rule = pair[0].split(' ')
     password = pair[1]
     letter = rule[1]
