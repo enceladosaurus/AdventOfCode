@@ -1,7 +1,3 @@
-with open("./puzzle2_input.txt", "r") as f:
-    password_list = [i.strip() for i in f.readlines()]
-pair_list = [(i.split(":")[0], i.split(":")[1].strip()) for i in password_list]
-
 # Part I
 def check_password(pair: tuple) -> bool:
     rule = pair[0].split(' ')
@@ -35,6 +31,9 @@ def check_password2(pair) -> bool:
         return False
 
 if __name__ == '__main__':
+    with open("./puzzle2_input.txt", "r") as f:
+    password_list = [i.strip() for i in f.readlines()]
+    pair_list = [(i.split(":")[0], i.split(":")[1].strip()) for i in password_list]
     count = 0
     for pair in pair_list:
         if check_password(pair):
