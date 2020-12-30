@@ -8,7 +8,7 @@ n_pattern = math.ceil(max_width/31)
 
 full_map = [i * n_pattern for i in slope_map]
 
-def get_trees(full_map: list, right: int, down: down) -> int:
+def get_trees(full_map: list, right: int, down: int) -> int:
     trees = 0
     position = 0
     for i in range(0, len(full_map), down):
